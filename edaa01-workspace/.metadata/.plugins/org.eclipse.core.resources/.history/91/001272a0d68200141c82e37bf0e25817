@@ -1,0 +1,55 @@
+
+import javax.swing.*;
+
+import java.awt.*;
+import java.util.*;
+
+public class SolverGUI extends JFrame {
+	private Solver solver;
+//	private JFrame window;
+		
+	public SolverGUI(Solver solver) {
+		super("Sudoku Solver");  //makes a JFrame: Frame window = new JFrame("Sudoku Solver");
+		this.solver = solver;
+		
+		
+	//	setLayout(new BorderLayout());
+	
+		GridLayout gridLayout = new GridLayout(9,9);
+
+		setLayout(gridLayout);
+
+		        add(new JTextField("1"));
+		        add(new JButton("2"));
+		        add(new JButton("3"));
+		        add(new JButton("4"));
+		        add(new JButton("5"));
+		
+		
+		
+		
+	
+	
+		JPanel panel = new JPanel();
+		add(panel);
+	
+		JTextField square = new JTextField();
+		panel.add(square);
+		
+		JButton solvebutton = new JButton("Solve");
+		panel.add(solvebutton);
+		JButton clearbutton = new JButton("Clear");
+		panel.add(clearbutton);
+		
+		
+
+	
+		pack();
+		setVisible(true);
+
+		}
+	
+	
+
+
+}

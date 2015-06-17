@@ -1,0 +1,90 @@
+
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+
+import java.awt.*;
+import java.util.*;
+
+public class SolverGUI extends JFrame {
+	private Solver solver;
+//	private JFrame window;
+		
+	public SolverGUI(Solver solver) {
+		super("Sudoku Solver");  //makes a JFrame: Frame window = new JFrame("Sudoku Solver");
+		this.solver = solver;
+		
+		//1 mainPanel
+		JPanel mainPanel = new JPanel();
+		mainPanel.setLayout(new GridLayout(2,2));
+		add(mainPanel);
+	
+		//1 3x3 gridPanel
+		JPanel gridPanel = new JPanel();
+		GridLayout gridLayout = new GridLayout(3,3);
+		gridPanel.setLayout(gridLayout);
+		gridPanel.setBorder(new LineBorder(Color.PINK,2)); 
+		gridPanel.setBackground(Color.BLACK);
+		mainPanel.add(gridPanel);
+		
+		//9 3x3 subGridPanels
+		for (int i = 1; i<10; i++) {
+//		String string = new String("subGridPanel" + Integer.toString(i));
+//		JPanel string = new JPanel();
+		JPanel gridSubPanelOne = new JPanel();
+		GridLayout gridSubLayout = new GridLayout(3,3);
+		gridSubPanelOne.setLayout(gridLayout);
+		gridSubPanelOne.setBorder(new LineBorder(Color.PINK,2)); 
+		
+		if (i % 2 == 0) {
+		Color lightBlue= new Color(224,255,255);
+		gridSubPanelOne.setBackground(lightBlue);
+		}
+		gridPanel.add(gridSubPanelOne);
+		
+		
+		//add squares to the subGridPanels
+		for (int j = 1; j <10; j++) {
+			JTextField square = new JTextField("0");
+			if (i%2==0){
+			Color lightBlue= new Color(224,255,255);
+			square.setBackground(lightBlue);
+			gridSubPanelOne.add(square);
+			}
+		}
+		}
+		
+		JPanel buttonPanel = new JPanel();
+		GridLayout buttonLayout = new GridLayout(1,2);
+		buttonPanel.setLayout(buttonLayout);
+		mainPanel.add(buttonPanel);
+	
+		
+//		JPanel bottompanel = new JPanel();
+//		add(bottompanel);
+	
+//		for (int i = 1; i <82; i++) {
+//			JTextField square = new JTextField("0");
+//			square.setBackground(Color.RED);
+//			gridPanel.add(square);
+//		     //   panel.add(new JTextField("i"));
+//		}
+	
+	
+		
+		JButton solvebutton = new JButton("Solve");
+		buttonPanel.add(solvebutton);
+		JButton clearbutton = new JButton("Clear");
+		buttonPanel.add(clearbutton);
+		
+		
+
+	
+		pack();
+		setVisible(true);
+
+		}
+	
+	
+
+
+}

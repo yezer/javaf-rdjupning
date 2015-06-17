@@ -1,0 +1,100 @@
+
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+
+import java.awt.*;
+import java.util.*;
+
+public class SolverGUI extends JFrame {
+	private Solver solver;
+//	private JFrame window;
+		
+	public SolverGUI(Solver solver) {
+		super("Sudoku Solver");  //makes a JFrame: Frame window = new JFrame("Sudoku Solver");
+		this.solver = solver;
+		
+		//1 mainPanel
+		JPanel mainPanel = new JPanel();
+		mainPanel.setLayout(new BorderLayout());
+		add(mainPanel);
+	
+		//1 3x3 gridPanel
+		JPanel gridPanel = new JPanel();
+		GridLayout gridLayout = new GridLayout(3,3);
+		gridPanel.setLayout(gridLayout);
+		Color lavender = new Color(230,230,250);
+		gridPanel.setBorder(new LineBorder(lavender)); 
+		gridPanel.setBackground(lavender);
+		mainPanel.add(gridPanel, "North");
+		
+		//9 3x3 subGridPanels
+		for (int i = 1; i<10; i++) {
+//		String string = new String("subGridPanel" + Integer.toString(i));
+//		JPanel string = new JPanel();
+		JPanel gridSubPanelOne = new JPanel();
+		GridLayout gridSubLayout = new GridLayout(3,3);
+		gridSubPanelOne.setLayout(gridLayout);
+		gridSubPanelOne.setBorder(new LineBorder(lavender)); 
+		
+//		if (i % 2 == 0) {
+//		Color lightBlue= new Color(219,250,250);
+//		gridSubPanelOne.setBackground(lightBlue);
+//		} else {
+//			Color snow= new Color(250,245,245);
+//			gridSubPanelOne.setBackground(snow);
+//		}
+		gridPanel.add(gridSubPanelOne);
+		
+		
+		//add squares to the subGridPanels
+		for (int j = 1; j <10; j++) {
+			JTextField square = new JTextField("0");
+			if (i%2==0){
+			Color lightBlue= new Color(224,255,255);
+			square.setBackground(lightBlue);
+			gridSubPanelOne.add(square);
+			} else {
+				Color snow= new Color(255,250,250);
+				square.setBackground(snow);
+				gridSubPanelOne.add(square);
+				
+			}
+		}
+		}
+		
+		//add 1 buttonPanel
+		JPanel buttonPanel = new JPanel();
+		GridLayout buttonLayout = new GridLayout(1,2);
+		buttonPanel.setLayout(buttonLayout);
+		mainPanel.add(buttonPanel, "Center");
+	
+		
+//		JPanel bottompanel = new JPanel();
+//		add(bottompanel);
+	
+//		for (int i = 1; i <82; i++) {
+//			JTextField square = new JTextField("0");
+//			square.setBackground(Color.RED);
+//			gridPanel.add(square);
+//		     //   panel.add(new JTextField("i"));
+//		}
+	
+	
+		
+		JButton solvebutton = new JButton("Solve");
+		buttonPanel.add(solvebutton);
+		JButton clearbutton = new JButton("Clear");
+		buttonPanel.add(clearbutton);
+		
+		
+
+	
+		pack();
+		setVisible(true);
+
+		}
+	
+	
+
+
+}

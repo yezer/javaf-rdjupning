@@ -1,0 +1,50 @@
+public class Tester {
+
+	public static void main(String[] args) {
+	//	Solver solver = new Solver();
+	//	solver.setValue(3, 7, 5);
+	//	int value = solver.getValue(3, 7);
+	//	System.out.println(value);
+	//	solver.setValue(3, 7, 10);
+	//	value = solver.getValue(3, 7);
+	//	System.out.println(value);
+	//	System.out.println(solver.publicsolve());
+		
+		
+	//	Solver sudoku = new Solver();
+	//	boolean solved = sudoku.publicsolve();
+	//	new SolverGUI(sudoku);
+		
+	//	System.out.println(solved);
+		
+	//	sudoku.print();
+		
+	//	Solver sudoku2 = new Solver();
+	//	sudoku2.setValue(7, 8, 5);
+	//	sudoku2.setValue(7,8,2);
+	//	sudoku2.setValue(8,7,8);
+	//	sudoku2.setValue(8, 7, 8);
+	//	solved = sudoku2.publicsolve();
+		
+	//	System.out.println(solved);
+	//	sudoku2.print();
+		
+	
+		
+		
+//		for (int i = 0; i < 1220 ; i++) {
+//		    System.out.println(i);
+//		    if (i == 20) {
+//		        break;
+//		    }
+//		 }
+		
+		for (int i = 1; i <5; i++) {
+			String string = new String(Integer.toString(i));
+			System.out.println(string);
+		}
+		
+		
+		
+	}
+}
