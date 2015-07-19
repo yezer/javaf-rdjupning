@@ -2,11 +2,10 @@ package map;
 
 import java.util.Arrays;
 
-import map.SimpleHashMapTwo.Entry;
-
 public class SimpleHashMap<K, V> implements Map<K, V> {
 	private Entry<K, V>[] table;
 	private int capacity;
+
 	int size;
 
 	/**
@@ -26,7 +25,7 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
 	public SimpleHashMap(int capacity) {
 		this.capacity = capacity;
 		size = 0;
-		table = (Entry<K, V>[]) new Entry[capacity ];
+		table = (Entry<K, V>[]) new Entry[capacity];
 	}
 
 	@Override
@@ -40,30 +39,6 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
 		}
 		System.out.println(show());
 		return null;
-	}
-
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		// TODO Auto-generated method stub
-		return super.clone();
-	}
-
-	@Override
-	public boolean equals(Object arg0) {
-		// TODO Auto-generated method stub
-		return super.equals(arg0);
-	}
-
-	@Override
-	protected void finalize() throws Throwable {
-		// TODO Auto-generated method stub
-		super.finalize();
-	}
-
-	@Override
-	public int hashCode() {
-		// TODO Auto-generated method stub
-		return super.hashCode();
 	}
 
 	@Override
@@ -107,33 +82,29 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
 	public V put(K arg0, V arg1) {
 		V old;
 		int index = index(arg0);
-
 		// checks for duplicates of key
 		if (find(index, arg0) != null) {
 			old = find(index, arg0).getValue();
 			find(index, arg0).setValue(arg1);
 			return old;
 		}
-		// end
-
+		size++;
+		// går att göra en while-loop med temp = table[index] ist
 		// checks if first slot in list with index given by key is empty
 		if (table[index] == null) {
-			size++;
+
 			if (size / capacity > 0.75) {
 				rehash();
 			}
 			index = index(arg0);
 			table[index] = new Entry<K, V>(arg0, arg1);
-		
+
 			return null;
 		}
-		// end
-
 		// adds key further down the list if the first slot wasn't empty
 		addListEntry(arg0, arg1, table[index]);
-		size++;
-		return null;
 
+		return null;
 	}
 
 	private V addListEntry(K arg0, V arg1, Entry<K, V> tableindex) {
@@ -141,7 +112,6 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
 		if (tableindex.next == null) {
 			previous = tableindex.getValue();
 			tableindex.next = new Entry<K, V>(arg0, arg1);
-		//	size++;
 		} else {
 			addListEntry(arg0, arg1, tableindex.next);
 		}
@@ -154,7 +124,7 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
 		for (int i = 0; i < table.length; i++) {
 			while (table[i] != null) {
 				int newindex = table[i].getKey().hashCode() % newtable.length;
-				if(newindex <0) {
+				if (newindex < 0) {
 					newindex = newindex + newtable.length;
 				}
 				if (newtable[newindex] == null) {
@@ -164,7 +134,8 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
 					addListEntry(table[i].getKey(), table[i].getValue(),
 							newtable[newindex]);
 				}
-				table[i] = table[i].next;  //can ruin table since it won't be used it anymore after this
+				table[i] = table[i].next; // can ruin table since it won't be
+				// used it anymore after this
 			}
 		}
 		table = newtable;
@@ -172,57 +143,61 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V remove(Object arg0) {
-		K key = (K) arg0;        
+		K key = (K) arg0;
 		int index = index(key);
-		//case 1: list is empty
+		// case 1: list is empty
 		if (table[index] == null) {
 			return null;
 		}
-		//case 2: key is not in the list
-		 if (find(index, key) == null) {
-			 return null;
-		 }
-		//case 3: key is in the first element in the list
-		if (find(index, key) !=null && table[index].getKey().equals(key)) {
+		// case 2: key is not in the list
+		if (find(index, key) == null) {
+			return null;
+		}
+		// case 3: key is in the first element in the list
+		if (find(index, key) != null && table[index].getKey().equals(key)) {
 			V removedvalue = table[index].getValue();
 			table[index] = table[index].next;
 			size--;
 			return removedvalue;
 		}
-	//case 4: key is later in list
+		// case 4: key is later in list
 		if (table[index].next != null) {
-		Entry<K,V> newfirstentry = new Entry(table[index].getKey(), table[index].getValue());
-		V old = helpRemove(index, key, table[index].next, newfirstentry);
-		table[index] = newfirstentry;
-		size--;
-		return old;
+			Entry<K, V> newfirstentry = new Entry(table[index].getKey(),
+					table[index].getValue());
+			V old = helpRemove(index, key, table[index].next, newfirstentry);
+			table[index] = newfirstentry;
+			size--;
+			return old;
 		}
 		return null;
 	}
-	
-	private V helpRemove(int index, K key, Entry<K, V> entry, Entry<K,V> newfirstentry) {
+
+	private V helpRemove(int index, K key, Entry<K, V> entry,
+			Entry<K, V> newfirstentry) {
 		if (entry.getKey().equals(key)) {
 			V removedvalue = entry.getValue();
 			addTail(index, key, entry, newfirstentry);
 			return removedvalue;
 		} else {
 			newfirstentry.next = new Entry(entry.getKey(), entry.getValue());
-			if(entry.next != null) {
-			return helpRemove(index, key, entry.next, newfirstentry.next);
+			if (entry.next != null) {
+				return helpRemove(index, key, entry.next, newfirstentry.next);
 			}
 		}
 		return null;
 	}
-	
-	private void addTail(int index, K key, Entry<K,V> entry, Entry<K,V> newfirstentry) {
+
+	private void addTail(int index, K key, Entry<K, V> entry,
+			Entry<K, V> newfirstentry) {
 		if (entry.next != null) {
-			newfirstentry.next = new Entry(entry.next.getKey(), entry.next.getValue());
+			newfirstentry.next = new Entry(entry.next.getKey(),
+					entry.next.getValue());
 			if (entry.next.next != null) {
 				addTail(index, key, entry.next, newfirstentry.next);
 			}
 		}
 	}
-	
+
 	@Override
 	public int size() {
 		return size;
@@ -239,7 +214,6 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
 			index = index + table.length;
 		}
 		return index;
-		// end
 	}
 
 	/**
@@ -263,7 +237,7 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
 			if (entry.getKey().equals(key)) {
 				returnentry = entry;
 			} else {
-					returnentry = helperFinder(index, key, entry.next);
+				returnentry = helperFinder(index, key, entry.next);
 			}
 		}
 		return returnentry;

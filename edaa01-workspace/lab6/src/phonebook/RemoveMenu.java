@@ -16,16 +16,17 @@ public class RemoveMenu extends JMenuItem implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		String s = JOptionPane.showInputDialog("Enter name to remove");
-		if (s == null ) {
+		if (s == null) {
 			return;
 		}
-		if ( s.isEmpty() == true) {
-			gui.setTheText("No name was entered."+ "\n");
+		if (s.isEmpty() == true) {
+			gui.setTheText("No name was entered." + "\n");
 			return;
 		}
 		boolean wasThereSuchANameToRemove = phoneBook.remove(s);
 		if (wasThereSuchANameToRemove == false) {
-			gui.setTheText("The phonebook does not contain the name " + s + ". No name was removed" + "\n");
+			gui.setTheText("The phonebook does not contain the name " + s
+					+ ". No name was removed" + "\n");
 		} else {
 			gui.setTheText("The name " + s + " was successfully removed" + "\n");
 		}

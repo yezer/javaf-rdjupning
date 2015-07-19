@@ -13,7 +13,7 @@ public class PhoneBook implements Serializable {
 	private Map<String, LinkedList<String>> phoneBook;
 
 	public PhoneBook() {
-		phoneBook = new HashMap();
+		phoneBook = new HashMap<String, LinkedList<String>>();
 
 	}
 
@@ -90,20 +90,20 @@ public class PhoneBook implements Serializable {
 		while (it.hasNext()) {
 			Map.Entry pairs = (Map.Entry) it.next();
 			String name = (String) pairs.getKey(); // The name of this
-													// person in the phone
-													// book
+			// person in the phone
+			// book
 			LinkedList<String> numbers = (LinkedList<String>) pairs.getValue(); // The
-																				// list
-																				// of
-																				// this
-																				// person's
-																				// phone
-																				// numbers
+			// list
+			// of
+			// this
+			// person's
+			// phone
+			// numbers
 
 			for (String phoneNum : numbers) { // Go through all the numbers
-												// the person
+			// the person
 				if (phoneNum.equals(number)) { // This person owns this number
-												// why doesn't == work here?
+				// why doesn't == work here?
 					listOfNames.add(name); // Add to the list
 				}
 			}
@@ -118,8 +118,25 @@ public class PhoneBook implements Serializable {
 	 * 
 	 * @return The set of all names present in this phone book
 	 */
-	public Set<String> names() { 
-		Set<String> setOfNames = new HashSet<String>(phoneBook.keySet());  //have to do a new HashSet or else the values from phoneBook are changed when setOfNames are changed
+	public Set<String> names() {
+		Set<String> setOfNames = new HashSet<String>(phoneBook.keySet()); // have
+//																			 to
+//																			 do
+//																			 a
+//																			 new
+//																			 HashSet
+//																			 or
+//																			 else
+//																			 the
+//																			 values
+//																			 from
+//																			 phoneBook
+//																			 are
+//																			 changed
+//																			 when
+//																			 setOfNames
+//																			 are
+//																			 changed
 		// vad händer om någon har skrivit in en siffra som sitt namn, eller
 		// öåa?
 		Set<String> setSortedNames = new LinkedHashSet<String>();

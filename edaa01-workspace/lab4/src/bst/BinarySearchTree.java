@@ -80,22 +80,6 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
 		BSTVisualizer visualizer4 = new BSTVisualizer("My Rebuilt Tree", 300,
 				400);
 		visualizer4.drawTree(mySecondTree);
-
-		// EXAM QUESTION TEST
-		System.out.println("Smallest value in second tree: ");
-		System.out.println(mySecondTree.pollFirst());
-		// visualize
-		BSTVisualizer visualizer5 = new BSTVisualizer("My Second Rebuilt Tree",
-				300, 400);
-		visualizer5.drawTree(mySecondTree);
-
-		System.out.println(mySecondTree.myPollFirst());
-		// visualize
-		BSTVisualizer visualizer6 = new BSTVisualizer("My Third Rebuilt Tree",
-				300, 400);
-		visualizer6.drawTree(mySecondTree);
-
-		System.out.println(mySecondTree.myPollFirst());
 	}
 
 	/**
@@ -123,7 +107,7 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
 		if (compResult < 0) {
 			if (n.left == null) {
 				n.left = new BinaryNode<E>(x);
-				size++;
+				size=size+1;
 				return true;
 			} else {
 				return add(n.left, x);
@@ -131,7 +115,7 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
 		} else {
 			if (n.right == null) {
 				n.right = new BinaryNode<E>(x);
-				size++;
+				size=size+1;
 				return true;
 			} else {
 				return add(n.right, x);
@@ -155,9 +139,17 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
 		}
 		BinaryNode<E> left = node.left;
 		BinaryNode<E> right = node.right;
-		int leftTreeHeight = helpHeight(left);
+		int leftTreeHeight = helpHeight(left); // går sedan igenom koden nedan
+		// för värdet på leftTreeHeight
+		// efter varje return call
 		int rightTreeHeight = helpHeight(right);
-		return Math.max(leftTreeHeight + 1, rightTreeHeight + 1);
+	/*	if (leftTreeHeight <= rightTreeHeight) {
+			height = 1 + rightTreeHeight;
+		} else {
+			height = 1 + leftTreeHeight;
+		}*/
+		return Math.max(leftTreeHeight+1, rightTreeHeight+1);
+//		return height;
 	}
 
 	/**
@@ -250,53 +242,4 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
 			}
 		}
 	}
-
-	// EXAM QUESTION SOLUTION TEST
-	// their solution
-	/**
-	 * Retrieves and removes the first (lowest) element, or returns null if this
-	 * tree is empty.
-	 * 
-	 * @return first (lowest) element, or null if this tree is empty
-	 */
-	public E pollFirst() {
-		if (root == null) {
-			return null;
-		}
-		E temp = null;
-		if (root.left == null) {
-			temp = root.element;
-			root = root.right;
-		} else {
-			BinaryNode<E> pre = root;
-			BinaryNode<E> p = root.left;
-			while (p.left != null) {
-				pre = p;
-				p = p.left;
-			}
-			temp = p.element;
-			pre.left = p.right; // här sätts den högra armen från elementet som
-								// togs bort (någon vänstra kan ej existera)
-								// till elementet ovanför det som togs bort.
-								// alltså försvinner elementet men en högra arm
-								// sparas
-		}
-		return temp;
-	}
-
-	// my solution
-	public E myPollFirst() {
-		BinaryNode<E> removeroot = root;
-		while (removeroot.left.left != null) {
-			removeroot = removeroot.left;
-		}
-		
-		E temp = removeroot.left.element;
-		removeroot.left = removeroot.left.right;
-	//	remove = null; // am i setting the actual node to null? högra armen har jag struntat i
-		return temp;
-	}
-
-	// END EXAM QUESTION SOLUTION TEST
-
 }

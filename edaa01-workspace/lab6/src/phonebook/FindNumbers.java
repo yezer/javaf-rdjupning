@@ -19,22 +19,22 @@ public class FindNumbers extends JMenuItem implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		String s = JOptionPane.showInputDialog("Enter name");
-		if (s == null ) {
+		if (s == null) {
 			return;
 		}
-		if ( s.isEmpty() == true) {
-			gui.setTheText("No name was entered."+ "\n");
+		if (s.isEmpty() == true) {
+			gui.setTheText("No name was entered." + "\n");
 			return;
 		}
-		
 		List<String> t = phoneBook.findNumber(s);
 		if (t == null) {
-			gui.setTheText("No phone numbers were found for " + s+ "\n");
+			gui.setTheText("No phone numbers were found for " + s + "\n");
 		} else {
-			 StringBuilder numbers = new StringBuilder();;
-				for (String number : t) {
-					numbers.append(number + " ");		
-					}
+			StringBuilder numbers = new StringBuilder();
+			;
+			for (String number : t) {
+				numbers.append(number + " ");
+			}
 			gui.setTheText(s + " has the following numbers: " + numbers + "\n");
 		}
 	}

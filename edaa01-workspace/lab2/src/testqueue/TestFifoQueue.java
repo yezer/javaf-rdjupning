@@ -1,6 +1,7 @@
 package testqueue;
 
 import static org.junit.Assert.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -126,5 +127,23 @@ public class TestFifoQueue {
 		assertTrue("Wrong size after poll", myIntQueue.size() == 0);
 		assertTrue("Queue not empty after poll", myIntQueue.isEmpty());
 	}
+	@Test (expected=NoSuchElementException.class)
+	public final void testIterator() {
+		Iterator itr = myIntQueue.iterator();
+		assertFalse("hasNext is wrong", itr.hasNext());
+		itr.next();
+		for (int i = 1; i <= 10; i++) {
+			myIntQueue.add(i);
+		}
+		int j = 1;
+		for (int i : myIntQueue) {
+			assertEquals("Wrong value from iterator:", j, i);
+			j++;
+		}
+	}
+	
+	
+	
+	
 
 }

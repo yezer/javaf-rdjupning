@@ -118,5 +118,16 @@ public class TestArraySet {
 			j++;
 		}
 	}
-
+@Test
+public final void testAddAll() {
+	ArraySet<Integer> s2 = new ArraySet<Integer>();
+	s2.add(3);
+	assertTrue("addAll is wrong", s.addAll(s2));
+	assertFalse("addAll added a duplicate",s.addAll(s2));
+	
+	
+	
+	}
 }
+
+
